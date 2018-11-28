@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "key.h"
+#include "../include/key.h"
 
 // Initializes and returns a key from the given char array
 // Example: s = "abcdwxyz"  =>  k = 0 1 2 3 22 23 24 25
