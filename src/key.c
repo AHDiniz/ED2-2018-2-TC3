@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "../include/key.h"
 
 // Initializes and returns a key from the given char array
@@ -85,4 +86,9 @@ Key subset_sum(Key k, Key T[N]) {
         }
     }
    return sum;
+}
+
+int compare(Key k, Key y)
+{
+    return memcmp(k.digit, y.digit, C);
 }

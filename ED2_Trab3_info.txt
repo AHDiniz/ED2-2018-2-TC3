@@ -15,7 +15,9 @@ Número de horas gastas para fazer o trabalho (aproximado):
  *  você tenha feito no código. Se você não utilizou key.c, descreva a
  *  estrutura de dados que você utilizou para manipular as senhas.
  *****************************************************************************/
-
+    Foi utilizado o arquivo key.c com as seguintes modificações:
+        - Foi incluida a biblioteca string.h.
+        - Foi incluida a função compare para comparar duas keys.
 
 /******************************************************************************
  *  Descreva a sua solução força bruta (brute.c) .

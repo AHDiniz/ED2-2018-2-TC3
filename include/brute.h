@@ -12,9 +12,21 @@
 
 #define BRUTE_H_
 
-Key *brute_force(Key encrypted, Key T[])
-{
-    
-}
+#include "../include/key.h"
+
+typedef struct{
+    Key value;
+    int position;
+} Table;
+
+/**
+ * Brute force solution
+ *
+ * input: encrypted key and the T teble.
+ * output: possible passwords vector.
+ * pre condition: T sorted by values.
+ * post condition: vector dynamically allocated, nPass <- number of passwords found.
+ */
+Key *brute_force(Key encrypted, Table *T, int *nPass);
 
 #endif

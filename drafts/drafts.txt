@@ -1,0 +1,23 @@
+Detalhes do problema:
+    - Chaves compostas por C unsigned chars.
+    - Cada carácter possui B bits (nesse trab B = 5 sempre).
+    - Alfabeto = "abcdefghijklmnopqrstuvwxyz012345".
+    - Numero de bits por senha = N = C * B.
+    PS: Todas essas macros em key.h.
+    - T eh uma tabela de N chaves.
+    - Encriptação converte a senha para binário e usa as posições não nulas para acessar T, somando as chaves encontradas.
+    - Resultado da soma eh a senha encriptada.
+
+Idéia por trás do método força bruta: (que eu estou fazendo)
+    - Devido a forma de acesso em T cada chave só pode ser somada uma única vez.
+    - Então, soma-se todas as possibilidades sem repetições.
+    - Se for encontrado o valor desejado, adiciona-o ao vetor de senhas encontradas.
+
+Idéia por trás do método não força bruta: (que vc vai fazer o q der fim de semana)
+    - S eh uma tabela de símbolos (implementação discutível) com todas as possíveis somas de um subconjunto de T.
+    - S deve ser usada de alguma forma para agilizar as contas.
+
+    Minhas idéias:
+        - Subconjunto = T, computando todas as somas até um certo número de caracteres (Ex: Tosas as somas entre 2 caracteres, ou até 3 caracteres etc)
+        - Subconjunto < T, computando todas as somas entre eles.
+    - Em ambos os casos usar S para agilizar as somas de algum jeito (Provavelmente usando o força bruta com as somas).
