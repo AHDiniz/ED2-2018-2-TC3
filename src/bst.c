@@ -3,77 +3,74 @@
 
 #include "../include/bst.h"
 
-struct bst {
-    Key chave;
-    struct bst* esq;
-    struct bst* dir;
+struct bst
+{
+    Key key;
+    struct bst* left;
+    struct bst* right;
 };
 
-BST* BST_CriaVazia() {
-    return NULL;
-}
-
-BST* BST_CriaNo(Key chave) {
+BST* BST_Create(Key key)
+{
     BST* arv = malloc(sizeof(BST));
-    arv->chave = chave;
-    arv->esq = BST_CriaVazia();
-    arv->dir = BST_CriaVazia();
+    arv->key = key;
+    arv->left = NULL;
+    arv->right = NULL;
 
     return arv;
 }
 
-int BST_Vazia(BST* raiz) {
-    if(raiz == NULL) {
-        return 1;
-    }
-    return 0;
+int BST_Empty(BST* root)
+{
+    return root == NULL;
 }
 
-BST* BST_AddNo(BST* raiz, BST* no) {
-    if(raiz != NULL) {
-        if(compare(no->chave, raiz->chave) == 0) {
-            BST_Destroi(no);
-            return raiz;
+BST* BST_Insert(BST* root, BST* node)
+{
+    if(root != NULL)
+    {
+        if(compare(node->key, root->key) == 0)
+        {
+            BST_Destroy(node);
+            return root;
         }
-        if(compare(no->chave, raiz->chave) < 0) {
-            raiz->esq = BST_AddNo(raiz->esq,no);
-        }
-        else {
-            raiz->dir = BST_AddNo(raiz->dir,no);
-        }
+        if(compare(node->key, root->key) < 0)
+            root->left = BST_Insert(root->left,node);
+        else
+            root->right = BST_Insert(root->right,node);
     }
-    else {
-        return no;
-    }
-    return raiz;
+    else return node;
+    return root;
 }
 
-//BST* BST_RemoveNo(BST* raiz, int chave);
-
-int BST_Altura(BST* raiz) {
-    if(raiz == NULL) {
+int BST_Altura(BST* root)
+{
+    if(root == NULL)
         return -1;
-    }
-    int aEsq = 1 + BST_Altura(raiz->esq);
-    int aDir = 1 + BST_Altura(raiz->dir);
+    int aEsq = 1 + BST_Altura(root->left);
+    int aDir = 1 + BST_Altura(root->right);
 
     return (aEsq > aDir) ? aEsq : aDir;
 }
 
-void BST_Destroi(BST* raiz) {
-    if(raiz != NULL) {
-        BST_Destroi(raiz->esq);
-        BST_Destroi(raiz->dir);
-        free(raiz);
+void BST_Destroy(BST* root)
+{
+    if(root != NULL)
+    {
+        BST_Destroy(root->left);
+        BST_Destroy(root->right);
+        free(root);
     }
 }
 
-void BST_Imprime(BST* raiz) {
+void BST_Print(BST* root)
+{
     printf("<");
-    if(raiz != NULL) {
-        BST_Imprime(raiz->esq);
-        print_key_char(raiz->chave);
-        BST_Imprime(raiz->dir);
+    if(root != NULL)
+    {
+        BST_Print(root->left);
+        print_key_char(root->key);
+        BST_Print(root->right);
     }
     printf(">");
 }

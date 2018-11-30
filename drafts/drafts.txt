@@ -9,7 +9,7 @@ Detalhes do problema:
     - Resultado da soma eh a senha encriptada.
 
 Idéia por trás do método força bruta: (que eu estou fazendo)
-    - Devido a forma de acesso em T cada chave só pode ser somada uma única vez.
+    - Devido a forma de acesso em T cada key só pode ser somada uma única vez.
     - Então, soma-se todas as possibilidades sem repetições.
     - Se for encontrado o valor desejado, adiciona-o ao vetor de senhas encontradas.
 
