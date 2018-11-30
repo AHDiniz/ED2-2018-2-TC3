@@ -19,9 +19,7 @@ int comparator(const void *, const void *);
 int main(int argc, char *argv[])
 {
     Key encrypted;      // encrypted password.
-    Table T[N];         // T table.
-    Key *passwords;     // possible decrypted passwords vector.
-    int nPass = 0;      // number of passwords found.
+    Key T[N];           // T table.
 
     if (argc != 2) {
         fprintf(stderr, "Usage: ./decrypt [encrypted] < [table.txt]\n");
@@ -38,26 +36,16 @@ int main(int argc, char *argv[])
     unsigned char buffer[C+1];
     for (int i = 0; i < N; i++) {
         scanf("%s", buffer);
-        T[i].value = init_key(buffer);
-        T[i].position = i;
+        T[i] = init_key(buffer);
     }
-
-    qsort(T, N, sizeof(Table), comparator); // Sorting T by values.
 
     // for( int i = 0; i < N; i++)
     // {
-    //     printf("%d - ", T[i].position);
-    //     print_key_char(T[i].value);
+    //     printf("%d - ", i);
+    //     print_key_char(T[i]);
     // }
 
-    passwords = brute_force(encrypted, T, &nPass);  // Barbarity.
-
-    for( int i = 0; i < nPass; i++)     // Printing passwords.
-    {
-        print_key_char(passwords[i]);
-    }
-
-    free(passwords);
+    brute_force(encrypted, T);  // Barbarity.
 
     return 0;
 }

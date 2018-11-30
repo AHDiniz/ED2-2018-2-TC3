@@ -14,19 +14,14 @@
 
 #include "../include/key.h"
 
-typedef struct{
-    Key value;
-    int position;
-} Table;
-
 /**
  * Brute force solution
  *
  * input: encrypted key and the T teble.
- * output: possible passwords vector.
- * pre condition: T sorted by values.
- * post condition: vector dynamically allocated, nPass <- number of passwords found.
+ * output: none.
+ * pre condition: none.
+ * post condition: none.
  */
-Key *brute_force(Key encrypted, Table *T, int *nPass);
+void brute_force(Key encrypted, Key *T);
 
 #endif

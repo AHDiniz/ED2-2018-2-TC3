@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "../include/key.h"
+#include "./include/key.h"
 
 int main(int argc, char *argv[]) {
     Key password;                  // A senha fornecida pelo usuário.
