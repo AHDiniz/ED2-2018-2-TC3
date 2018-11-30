@@ -12,12 +12,12 @@ struct bst
 
 BST* BST_Create(Key key)
 {
-    BST* arv = malloc(sizeof(BST));
-    arv->key = key;
-    arv->left = NULL;
-    arv->right = NULL;
+    BST* tree = (BST *) malloc(sizeof(BST));
+    tree->key = key;
+    tree->left = NULL;
+    tree->right = NULL;
 
-    return arv;
+    return tree;
 }
 
 int BST_Empty(BST* root)

@@ -6,11 +6,11 @@
 
 typedef struct hashTable HashTable;
 
-HashTable *HashTable_Create();
+HashTable *HashTable_Create(int size);
 
 void HashTable_Destroy(HashTable *table);
 
-int HashTable_Hash(HashTable *table);
+int HashTable_Hash(Key key, HashTable *table);
 
 void HashTable_Insert(HashTable *table, Key key);
 
