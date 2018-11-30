@@ -11,13 +11,16 @@ Detalhes do problema:
 Idéia por trás do método força bruta: (que eu estou fazendo)
     - Devido a forma de acesso em T cada chave só pode ser somada uma única vez.
     - Então, soma-se todas as possibilidades sem repetições.
-    - Se for encontrado o valor desejado, adiciona-o ao vetor de senhas encontradas.
+    - Se for encontrado o valor desejado, printa-o.
 
 Idéia por trás do método não força bruta: (que vc vai fazer o q der fim de semana)
     - S eh uma tabela de símbolos (implementação discutível) com todas as possíveis somas de um subconjunto de T.
     - S deve ser usada de alguma forma para agilizar as contas.
 
     Minhas idéias:
-        - Subconjunto = T, computando todas as somas até um certo número de caracteres (Ex: Tosas as somas entre 2 caracteres, ou até 3 caracteres etc)
+        - Subconjunto = T, computando todas as somas até um certo número de caracteres (Ex: Tosas as somas entre 2 caracteres, ou entre 2 e 3 caracteres etc)
         - Subconjunto < T, computando todas as somas entre eles.
     - Em ambos os casos usar S para agilizar as somas de algum jeito (Provavelmente usando o força bruta com as somas).
+
+
+PS: lembre de anotar as informações relevantes em ED2_Trab3_info.txt
