@@ -21,7 +21,7 @@ Key init_key(unsigned char s[])
     // Note que não há problema de retornar uma variável local aqui porque
     // a semântica do C para variáveis do tipo struct (não struct*) é fazer
     // uma cópia da struct inteira. Isso pode parecer ineficiente mas lembre
-    // que o vetor da struct de chave é muito pequeno.
+    // que o vetor da struct de key é muito pequeno.
     return k;
 }
 

@@ -6,18 +6,16 @@
 
 typedef struct bst BST;
 
-BST* BST_CriaVazia();
+BST* BST_Create(Key key);
 
-BST* BST_CriaNo(Key chave);
+int BST_Empty(BST* root);
 
-int BST_Vazia(BST* raiz);
+BST* BST_Insert(BST* root, BST* node);
 
-BST* BST_AddNo(BST* raiz, BST* no);
+int BST_Height(BST* root);
 
-int BST_Altura(BST* raiz);
+void BST_Destroy(BST* root);
 
-void BST_Destroi(BST* raiz);
-
-void BST_Imprime(BST* raiz);
+void BST_Print(BST* root);
 
 #endif
