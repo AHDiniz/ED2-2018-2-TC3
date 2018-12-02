@@ -81,7 +81,7 @@ struct sTable
     int size;
 };
 
-STable *STable_Create()
+STable *STable_Create(int max)
 {
     STable *table = malloc(sizeof(*table));
     table->size = 0;

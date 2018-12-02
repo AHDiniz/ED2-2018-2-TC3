@@ -6,7 +6,7 @@
 
 typedef struct sTable STable;
 
-STable *STable_Create();
+STable *STable_Create(int max);
 
 void STable_Destroy(STable *table);
 
