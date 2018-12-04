@@ -63,11 +63,11 @@ struct sTable
 STable *STable_Create(int max)
 {
     STable *table = malloc(sizeof(*table));
-    table->lists = malloc(sizeof(*(table->list)) * max);
+    table->lists = malloc(sizeof(*(table->lists)) * max);
     for (int i = 0; i < max; i++) table->lists[i] = NULL;
     table->size = 0;
     table->max = max;
-    return max;
+    return table;
 }
 
 void STable_Destroy(STable *table)
@@ -95,6 +95,26 @@ void STable_Insert(STable *table, Key key)
 {
     if (table == NULL || table->size == table->max) return;
     int pos = STable_Hash(table, key);
-    if (table->lists[i] == NULL) table->lists[i] = List_Create(key);
-    else List_Insert(table->lists[i], key);
+    if (table->lists[pos] == NULL) table->lists[pos] = List_Create(key);
+    else List_Insert(table->lists[pos], key);
+}
+
+int STable_Contains(STable *table, Key key)
+{
+    int result = 0;
+    for (int i = 0; i < table->max; i++)
+    {
+        if (table->lists[i] != NULL)
+        {
+            List *current;
+            for (current = table->lists[i]; current != NULL && compare(current->key, key) != 0; current = current->next);
+            result = current != NULL;
+        }
+    }
+    return result;
+}
+
+void STable_Delete(STable *table, Key key)
+{
+
 }
