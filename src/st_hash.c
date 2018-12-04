@@ -131,6 +131,7 @@ void STable_Print(STable *table)
             for (List *current = table->lists[i]; current != NULL; current = current->next)
             {
                 print_key_char(current->key);
+                printf(" ");
             }
         }
     }

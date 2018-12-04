@@ -24,7 +24,9 @@ EXE = $(BIN)/$(TARGET)
 
 compile: $(EXE)
 
-$(BIN)/st_test: $(SRC)/st_hash.c $(SRC)/st_tester.c
+symbolTable: $(BIN)/st_test
+
+$(BIN)/st_test: $(SRC)/st_hash.c $(SRC)/st_tester.c $(SRC)/key.c
 	$(CC) -o $@ $^ $(FLAGS)
 
 $(EXE): $(SOURCES)
