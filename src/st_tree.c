@@ -109,7 +109,7 @@ void STable_Destroy(STable *table)
 
 int STable_Empty(STable *table)
 {
-    return ((table == NULL) || table->root = NULL);
+    return table == NULL || table->root == NULL;
 }
 
 int STable_Size(STable *table)

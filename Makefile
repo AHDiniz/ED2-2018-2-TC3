@@ -8,6 +8,8 @@ SRC = src
 
 BIN = bin
 
+INC = include
+
 CC = gcc
 
 FLAGS = -Wall -g
@@ -20,16 +22,18 @@ endif
 
 SOURCES = $(wildcard $(SRC)/*.c)
 
+INCLUDES = $(wildcard $(INC)/*.h)
+
 EXE = $(BIN)/$(TARGET)
 
 compile: $(EXE)
 
 symbolTable: $(BIN)/st_test
 
-$(BIN)/st_test: $(SRC)/st_hash.c $(SRC)/st_tester.c $(SRC)/key.c
+$(BIN)/st_test: $(SRC)/st_tree.c $(SRC)/st_tester.c $(SRC)/key.c
 	$(CC) -o $@ $^ $(FLAGS)
 
-$(EXE): $(SOURCES)
+$(EXE): $(SOURCES) $(INCLUDES)
 	$(CC) -o $@ $^ $(FLAGS)
 
 clean:
