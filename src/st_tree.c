@@ -98,7 +98,7 @@ void STable_Destroy(STable *table)
 
 int STable_Empty(STable *table)
 {
-    return table == NULL || table->root = NULL;
+    return ((table == NULL) || table->root = NULL);
 }
 
 int STable_Size(STable *table)
@@ -116,7 +116,7 @@ int STable_Contains(STable *table, Key key)
 {
     if (STable_Empty(table)) return 0;
     Node *target;
-    for (target = table->root; target != NULL && compare(key, target->key) != 0; target = (compare(key, target->key) < 0) ? target->left : tagert->right);
+    for (target = table->root; target != NULL && compare(key, target->key) != 0; target = (compare(key, target->key) < 0) ? target->left : target->right);
     return target != NULL;
 }
 
