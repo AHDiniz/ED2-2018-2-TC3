@@ -8,7 +8,7 @@ Nome 2: Rafael Belmock Pedruzzi
 SO utilizado: Linux (labgrad)
 Versão do compilador utilizado: 5.4.0 20160609
 Editor(es) de código utilizado(s): VS Code
-Número de horas gastas para fazer o trabalho (aproximado): 8h
+Número de horas gastas para fazer o trabalho (aproximado): 10h
 
 /******************************************************************************
  *  Se você usou o arquivo key.c, descreva qualquer modificação/otimização que
@@ -22,7 +22,19 @@ Número de horas gastas para fazer o trabalho (aproximado): 8h
 /******************************************************************************
  *  Descreva a sua solução força bruta (brute.c) .
  *****************************************************************************/
+    A solução força bruta implementada utiliza uma simples lógica recursiva 
+    para calcular todas as possiveis combinações dos elementos de T. A partir
+    da seguinte função:
 
+    void force(Key *encrypted, Key T[], int binpass[], 
+                            Key pSum, int k, bool change);
+
+    Onde binpass é um vetor que representa a posição dos valores somados de T,
+    pSum é a soma de todos os valores anteriormente somados, k é a posição de T
+    acessada neste nível da recursão e change é uma variável auxiliar que evita
+    a avaliação de valores anteriormente testados.
+
+    
 
 /******************************************************************************
  *  Faça uma descrição de alto nível do seu programa de quebra de senha
@@ -57,8 +69,18 @@ Tamanho     Tempo (segundos)
 ----------------------------
  4          0.145
  5          3.855
- 6          
- 8
+ 6          125.619
+ 8          128600*
+
+ *: O tempo de execução cresce exponencialmente com relação ao número de bits 
+ na senha. Como cada carácter adiciona 5 bits a senha, o tempo de execução de 
+ uma senha de x de caracteres, sendo N(x) o número de bits de uma senha de 
+ tamanho x e F(x) o tempo de execução para uma senha de tamanho x, pode ser aproximado como:
+
+           F(x-1) [ 2^N(x) / 2^N(x-1) ] = 32 F(x-1)
+
+Desta forma, o tempo de execução do programa para uma senha de tamanho 8 será
+aproximadamente 32 . 125.619 = 128633 segundos.
 
 /******************************************************************************
  *  Quanto tempo decrypt.c leva para quebrar as senhas de um dado tamanho?
@@ -79,6 +101,8 @@ Tamanho    Tempo (segundos)    Memória (bytes)
  *  Quantas operações decrypt.c faz sobre uma senha com N bits?
  *  Utilize a notação de big-Oh nas suas respostas.
  *****************************************************************************/
+
+    brute.c: O(e(N))
 
 
 /******************************************************************************
