@@ -20,4 +20,6 @@ int STable_Contains(STable *table, Key key);
 
 void STable_Delete(STable *table, Key key);
 
+void STable_Print(STable *table);
+
 #endif // SYMBOL_TABLE_H_

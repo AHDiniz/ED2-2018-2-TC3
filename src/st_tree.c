@@ -1,5 +1,6 @@
 #include "../include/symbolTable.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct node Node;
 struct node
@@ -75,6 +76,13 @@ static Node *Node_Delete(Node *root, Key key)
     return root;
 }
 
+static void Node_Print(Node *root)
+{
+    if (root == NULL) return;
+    printf("< ");
+
+}
+
 struct sTable
 {
     Node *root;
@@ -125,4 +133,10 @@ void STable_Delete(STable *table, Key key)
     if (STable_Empty(table)) return;
     table->root = Node_Delete(table->root, key);
     table->size--;
+}
+
+void STable_Print(STable *table)
+{
+    if (STable_Empty(table)) return;
+    
 }
