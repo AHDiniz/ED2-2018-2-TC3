@@ -10,5 +10,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../include/decrypt.h"
+#include "../../include/decrypt.h"
 
+void decrypt(Key encrypted, Key *T)
+{
+    
+}

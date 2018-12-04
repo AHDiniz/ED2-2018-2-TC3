@@ -4,14 +4,14 @@
  * Authors: Alan Herculano Diniz & Rafael Belmock Pedruzzi
  * 
  *
- * main.c: program's entry point
+ * main.c: brute's entry point
  **********************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../include/key.h"
-#include "../include/brute.h"
+#include "../../include/key.h"
+#include "../../include/brute.h"
 
 int comparator(const void *, const void *);
 
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     //     print_key_char(T[i]);
     // }
 
-    brute_force(encrypted, T);  // Barbarity.
+    brute_force(encrypted, T);
 
     return 0;
 }

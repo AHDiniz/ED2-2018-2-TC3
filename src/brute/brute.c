@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "../include/brute.h"
+#include "../../include/brute.h"
 
 /**
  * Auxiliar function that convert a binary password (represented in a int vector) to the corresponding key:
