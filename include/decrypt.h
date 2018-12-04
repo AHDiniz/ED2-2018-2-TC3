@@ -11,6 +11,16 @@
 
 #define DECRYPT_H_
 
+#include "key.h"
 
+/**
+ * Decrypt function
+ *
+ * input: encrypted key and the T teble.
+ * output: none.
+ * pre condition: none.
+ * post condition: none.
+ */
+void decrypt(Key encrypted, Key *T);
 
 #endif

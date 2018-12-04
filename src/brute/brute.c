@@ -78,10 +78,10 @@ unsigned char *convert(int *binpass)
     for(int i = 0, j = 0; i < C; i++)   // Converting each character from binary.
     {
         sum = 0;
-        sum += binpass[j++] * 16;
-        sum += binpass[j++] * 8;
-        sum += binpass[j++] * 4;
-        sum += binpass[j++] * 2;
+        sum += binpass[j++] << 4;
+        sum += binpass[j++] << 3;
+        sum += binpass[j++] << 2;
+        sum += binpass[j++] << 1;
         sum += binpass[j++];
 
         k[i] = ALPHABET[sum];       // Finding the corresponding caracter in the alphabet.
