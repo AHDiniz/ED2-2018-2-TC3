@@ -22,5 +22,17 @@ Idéia por trás do método não força bruta: (que vc vai fazer o q der fim de 
         - Subconjunto < T, computando todas as somas entre eles.
     - Em ambos os casos usar S para agilizar as somas de algum jeito (Provavelmente usando o força bruta com as somas).
 
+    Ideia Atual:
+        - S é composto das K ultimas chaves de T.
+        - Em brute force, as ultimas chaves são repetidamente avaliadas. Ao invez de soma-las novamente vamos resgatar o valor de suas possíveis somas de S e usa-los diretamente.
+        - Problemas:
+            1. Qual o valor de K?
+                a) <= N / 2.
+                b) Um número fixo para limitar o uso de memória.
+            2. Como preencher S?
+                a) Realizar as somas com antecedência.
+                b) Realizar as somas durante a execução do brute force.
+            3. Como acessar S?
+                a) 
 
 PS: lembre de anotar as informações relevantes em ED2_Trab3_info.txt

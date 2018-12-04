@@ -1,12 +1,11 @@
-/**
+/**********************************************************
  * ED2-2018-2-TC3: Password Cracking problem
  * 
  * Authors: Alan Herculano Diniz & Rafael Belmock Pedruzzi
  * 
- **********************************************************
  *
  * brute.h: brute force solution inplementations
- */
+ **********************************************************/
 
 #ifndef BRUTE_H_
 

@@ -1,12 +1,11 @@
-/**
+/**********************************************************
  * ED2-2018-2-TC3: Password Cracking problem
  * 
  * Authors: Alan Herculano Diniz & Rafael Belmock Pedruzzi
  * 
- **********************************************************
  *
  * brute.c: brute force solution definitions
- */
+ **********************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,26 +44,6 @@ void brute_force(Key encrypted, Key *T)
     free(c);
 }
 
-unsigned char *convert(int *binpass)
-{
-    int sum = 0;            // Alphabet's character.
-    unsigned char *k = malloc((C + 1) * sizeof(unsigned char));     // Characters.
-
-    for(int i = 0, j = 0; i < C; i++)   // Converting each character from binary.
-    {
-        sum = 0;
-        sum += binpass[j++] * 16;
-        sum += binpass[j++] * 8;
-        sum += binpass[j++] * 4;
-        sum += binpass[j++] * 2;
-        sum += binpass[j++];
-
-        k[i] = ALPHABET[sum];       // Finding the corresponding caracter in the alphabet.
-    }
-
-    return k;
-}
-
 void force(Key *encrypted, Key T[], int binpass[], Key pSum, int k, bool change)
 {
     // Checking previous sum:
@@ -89,4 +68,24 @@ void force(Key *encrypted, Key T[], int binpass[], Key pSum, int k, bool change)
 
     // Checking all combinations with pSum, without the current key (change is false because pSum was checked previously).
     force(encrypted, T, binpass, pSum, k + 1, false);
+}
+
+unsigned char *convert(int *binpass)
+{
+    int sum = 0;            // Alphabet's character.
+    unsigned char *k = malloc((C + 1) * sizeof(unsigned char));     // Characters.
+
+    for(int i = 0, j = 0; i < C; i++)   // Converting each character from binary.
+    {
+        sum = 0;
+        sum += binpass[j++] * 16;
+        sum += binpass[j++] * 8;
+        sum += binpass[j++] * 4;
+        sum += binpass[j++] * 2;
+        sum += binpass[j++];
+
+        k[i] = ALPHABET[sum];       // Finding the corresponding caracter in the alphabet.
+    }
+
+    return k;
 }
