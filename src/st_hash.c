@@ -1,5 +1,6 @@
 #include "../include/symbolTable.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct list List;
 struct list
@@ -107,7 +108,9 @@ int STable_Contains(STable *table, Key key)
         if (table->lists[i] != NULL)
         {
             List *current;
-            for (current = table->lists[i]; current != NULL && compare(current->key, key) != 0; current = current->next);
+            for (current = table->lists[i]; current != NULL; current = current->next)
+                if (compare(current->key, key) != 0)
+                    break;
             result = current != NULL;
         }
     }
@@ -117,4 +120,19 @@ int STable_Contains(STable *table, Key key)
 void STable_Delete(STable *table, Key key)
 {
 
+}
+
+void STable_Print(STable *table)
+{
+    for (int i = 0; i < table->max; i++)
+    {
+        if (table->lists[i] != NULL)
+        {
+            for (List *current = table->lists[i]; current != NULL; current = current->next)
+            {
+                print_key_char(current->key);
+            }
+        }
+    }
+    printf("\n");
 }

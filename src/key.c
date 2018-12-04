@@ -52,7 +52,7 @@ void print_key_char(Key k)
     {
         printf("%c", ALPHABET[k.digit[i]]);
     }
-    printf("\n");
+    // printf("\n");
 }
 
 // Returns the i-th bit from the given key

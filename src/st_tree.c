@@ -80,7 +80,10 @@ static void Node_Print(Node *root)
 {
     if (root == NULL) return;
     printf("< ");
-
+    print_key_char(root->key);
+    Node_Print(root->left);
+    Node_Print(root->right);
+    printf("> ");
 }
 
 struct sTable
@@ -138,5 +141,6 @@ void STable_Delete(STable *table, Key key)
 void STable_Print(STable *table)
 {
     if (STable_Empty(table)) return;
-    
+    Node_Print(table->root);
+    printf("\n");
 }

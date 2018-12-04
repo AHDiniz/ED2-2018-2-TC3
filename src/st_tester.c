@@ -17,7 +17,9 @@ int main(int argc, char *argv[])
     STable_Insert(table, k2);
     STable_Insert(table, k3);
 
-    
+    STable_Print(table);
+
+    STable_Destroy(table);
 
     return 0;
 }
