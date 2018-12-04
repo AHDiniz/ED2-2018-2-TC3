@@ -55,9 +55,9 @@ Número de horas gastas para fazer o trabalho (aproximado): 8h
 
 Tamanho     Tempo (segundos)
 ----------------------------
- 4
- 5
- 6
+ 4          0.145
+ 5          3.855
+ 6          
  8
 
 /******************************************************************************
