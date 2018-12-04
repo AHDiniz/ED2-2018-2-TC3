@@ -28,6 +28,10 @@ endif
 
 SOURCES = $(wildcard $(SRC)/*.c)
 
+BSRC = $(wildcard $(SRC)/brute/*.c)
+
+DSRC = $(wildcard $(SRC)/decrypt/*.c)
+
 INCLUDES = $(wildcard $(INC)/*.h)
 
 BRUTE = $(BIN)/$(BNAME)
@@ -41,10 +45,10 @@ symbolTable: $(BIN)/st_test
 $(BIN)/st_test: $(SRC)/st_tree.c $(SRC)/st_tester.c $(SRC)/key.c
 	$(CC) -o $@ $^ $(FLAGS)
 
-$(BRUTE): $(SOURCES) $(INCLUDES)
+$(BRUTE): $(SOURCES) $(INCLUDES) $(BSRC)
 	$(CC) -o $@ $^ $(FLAGS)
 
-$(DECRYPT): $(SOURCES) $(INCLUDES)
+$(DECRYPT): $(SOURCES) $(INCLUDES) $(DSRC)
 	$(CC) -o $@ $^ $(FLAGS)
 
 clean:
