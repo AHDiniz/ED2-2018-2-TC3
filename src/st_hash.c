@@ -74,6 +74,7 @@ STable *STable_Create(int max)
 void STable_Destroy(STable *table)
 {
     for (int i = 0; i < table->max; i++) List_Destroy(table->lists[i]);
+    free(table->lists);
     free(table);
 }
 
