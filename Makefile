@@ -15,25 +15,36 @@ CC = gcc
 FLAGS = -Wall -g
 
 ifeq ($(OS), Windows_NT)
-	TARGET = brute.exe
+	BNAME = brute.exe
 else
-	TARGET = brute
+	BNAME = brute
+endif
+
+ifeq ($(OS), Windows_NT)
+	DNAME = decrypt.exe
+else
+	DNAME = decrypt
 endif
 
 SOURCES = $(wildcard $(SRC)/*.c)
 
 INCLUDES = $(wildcard $(INC)/*.h)
 
-EXE = $(BIN)/$(TARGET)
+BRUTE = $(BIN)/$(BNAME)
 
-compile: $(EXE)
+DECRYPT = $(BIN)/$(DNAME)
+
+compile: $(BRUTE) $(DECRYPT)
 
 symbolTable: $(BIN)/st_test
 
 $(BIN)/st_test: $(SRC)/st_tree.c $(SRC)/st_tester.c $(SRC)/key.c
 	$(CC) -o $@ $^ $(FLAGS)
 
-$(EXE): $(SOURCES) $(INCLUDES)
+$(BRUTE): $(SOURCES) $(INCLUDES)
+	$(CC) -o $@ $^ $(FLAGS)
+
+$(DECRYPT): $(SOURCES) $(INCLUDES)
 	$(CC) -o $@ $^ $(FLAGS)
 
 clean:
