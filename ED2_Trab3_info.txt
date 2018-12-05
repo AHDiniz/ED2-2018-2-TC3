@@ -8,7 +8,7 @@ Nome 2: Rafael Belmock Pedruzzi
 SO utilizado: Linux (labgrad)
 Versão do compilador utilizado: 5.4.0 20160609
 Editor(es) de código utilizado(s): VS Code
-Número de horas gastas para fazer o trabalho (aproximado): 10h
+Número de horas gastas para fazer o trabalho (aproximado): 11h
 
 /******************************************************************************
  *  Se você usou o arquivo key.c, descreva qualquer modificação/otimização que
@@ -29,12 +29,21 @@ Número de horas gastas para fazer o trabalho (aproximado): 10h
     void force(Key *encrypted, Key T[], int binpass[], 
                             Key pSum, int k, bool change);
 
-    Onde binpass é um vetor que representa a posição dos valores somados de T,
-    pSum é a soma de todos os valores anteriormente somados, k é a posição de T
-    acessada neste nível da recursão e change é uma variável auxiliar que evita
-    a avaliação de valores anteriormente testados.
+    Onde binpass é um vetor que armazena as posições dos valores somados de T 
+    até o nível atual da recursão, pSum é a soma destes valores, k é a posição
+    de T acessada neste nível e change é uma variável auxiliar que evita a
+    repetição de comparações.
 
-    
+    Tendo em vista a forma de acesso a T no lógica de encriptação, cada posição
+    de T pode ser somada no máximo 1 vez. Dessa forma a função force executa
+    apenas quatro funcionalidades essenciais:
+
+        1°- comparar a soma anterior com o valor da senha encriptada e plotar
+            a chave correspondente caso sejam iguais.
+        2º- executar recursão de force para o k seguinte.
+        3º- somar a chave na k-ésima posição de T a soma anterior.
+        4º- executar novamente a recursão para o k seguinte utilizando a nova
+            soma.
 
 /******************************************************************************
  *  Faça uma descrição de alto nível do seu programa de quebra de senha
@@ -102,7 +111,13 @@ Tamanho    Tempo (segundos)    Memória (bytes)
  *  Utilize a notação de big-Oh nas suas respostas.
  *****************************************************************************/
 
-    brute.c: O(e(N))
+    brute.c: Desconsiderando as funções que não dependem de N e operações
+    básicas, a função recursiva executa 2^N vezes gerando 2^N somas de chaves,
+    2^N acessos a T (na soma) e 2^(N-1) comparações entre chaves (devido a
+    variável change, somente metade das funções chamadas executarão comparações
+    entre chaves) gerando um crescimento O(e(N)).
+
+    decrypt.c:
 
 
 /******************************************************************************
