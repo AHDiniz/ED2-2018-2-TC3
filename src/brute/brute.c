@@ -26,9 +26,9 @@ unsigned char *convert(int *);
 /**
  * Auxiliar recursive function that sum all possible combinations of T table's keys to find the decrypted passwords and print them:
  *
- * input: pointers to the encrypted key, to the table T and to a int vector, a key representing the previous sum, a int representing the current position of T being used and a bool that informs if the key was already cheked.
+ * input: pointers to the encrypted key, to the table T and to a int vector, a key representing the previous sum, a int representing the current position of T being used and a bool that informs if the key was already compared.
  * output: none.
- * pre condition: T sorted, binpass with max size of at least N.
+ * pre condition: binpass with max size of at least N.
  * post condition: encrypted key and T unchanged.
  * 
  */
