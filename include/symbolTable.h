@@ -6,6 +6,8 @@
 
 typedef struct sTable STable;
 
+typedef void(*STable_Manipulate)(void*,void*) callback; 
+
 STable *STable_Create(int max);
 
 void STable_Destroy(STable *table);
@@ -23,6 +25,6 @@ void STable_Delete(STable *table, Key key);
 void STable_Print(STable *table);
 
 // IMPLEMENTE ISSO:
-void STable_RunThrougth(STable *table, void *data, void func(void*,void*));
+void STable_RunThrougth(STable *table, void *data, callback);
 
 #endif // SYMBOL_TABLE_H_
