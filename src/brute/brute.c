@@ -58,16 +58,16 @@ void force(Key *encrypted, Key T[], int binpass[], Key pSum, int k, bool change)
         return;
     }
 
+    // Checking all combinations with previous sum, without the current key (change is false because pSum was checked previously).
+    force(encrypted, T, binpass, pSum, k + 1, false);
+
     Key sum = add(pSum, T[k]);  // Adding current key to the sum.
     binpass[k] = 1;             // Marking key as added in the binary vector.
 
     // Recursively checking all combinations with the new sum:
     force(encrypted, T, binpass, sum, k + 1, true);
 
-    binpass[k] = 0; // Unchecking the current key to check all combinations without it.
-
-    // Checking all combinations with pSum, without the current key (change is false because pSum was checked previously).
-    force(encrypted, T, binpass, pSum, k + 1, false);
+    binpass[k] = 0; // Unchecking the current key to restart it's condition.
 }
 
 unsigned char *convert(int *binpass)

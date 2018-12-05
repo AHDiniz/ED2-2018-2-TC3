@@ -13,8 +13,6 @@
 #include "../../include/key.h"
 #include "../../include/brute.h"
 
-int comparator(const void *, const void *);
-
 int main(int argc, char *argv[])
 {
     Key encrypted;      // encrypted password.
@@ -47,11 +45,4 @@ int main(int argc, char *argv[])
     brute_force(encrypted, T);
 
     return 0;
-}
-
-int comparator(const void *a, const void *b)
-{
-    Key *k = (Key *) a;
-    Key *y = (Key *) b;
-    return compare(*k, *y);
 }

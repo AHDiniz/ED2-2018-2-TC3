@@ -13,7 +13,7 @@
 #include "../../include/key.h"
 #include "../../include/decrypt.h"
 
-int comparator(const void *, const void *);
+// int comparator(const void *, const void *);
 
 int main(int argc, char *argv[])
 {
@@ -49,9 +49,9 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-int comparator(const void *a, const void *b)
-{
-    Key *k = (Key *) a;
-    Key *y = (Key *) b;
-    return compare(*k, *y);
-}
+// int comparator(const void *a, const void *b)
+// {
+//     Key *k = (Key *) a;
+//     Key *y = (Key *) b;
+//     return compare(*k, *y);
+// }
