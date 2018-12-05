@@ -90,7 +90,12 @@ int STable_Size(STable *table)
 
 static int STable_Hash(STable *table, Key key)
 {
-    return table->size + 1;
+    int j = 0;
+    for(int i = 0; i < N; i++)
+    {
+        j += bit(key, N-1-i) << i;
+    }
+    return j % table->max;
 }
 
 void STable_Insert(STable *table, Key key)
@@ -106,6 +111,7 @@ int STable_Contains(STable *table, Key key)
     int result = 0;
     for (int i = 0; i < table->max; i++)
     {
+        if (result) break;
         if (table->lists[i] != NULL)
         {
             List *current;

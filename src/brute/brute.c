@@ -30,7 +30,6 @@ unsigned char *convert(int *);
  * output: none.
  * pre condition: binpass with max size of at least N.
  * post condition: encrypted key and T unchanged.
- * 
  */
 void force(Key *encrypted, Key T[], int binpass[], Key pSum, int k, bool change);
 
