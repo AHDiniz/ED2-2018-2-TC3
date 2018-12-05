@@ -11,6 +11,7 @@
 #include <stdlib.h>
 
 #include "../../include/decrypt.h"
+#include "../../include/symbolTable.h"
 
 void decrypt(Key encrypted, Key *T)
 {

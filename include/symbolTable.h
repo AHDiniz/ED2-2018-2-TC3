@@ -22,4 +22,7 @@ void STable_Delete(STable *table, Key key);
 
 void STable_Print(STable *table);
 
+// IMPLEMENTE ISSO:
+void STable_RunThrougth(STable *table, void *data, void func(void*,void*));
+
 #endif // SYMBOL_TABLE_H_
