@@ -8,7 +8,7 @@ Nome 2: Rafael Belmock Pedruzzi
 SO utilizado: Linux (labgrad)
 Versão do compilador utilizado: 5.4.0 20160609
 Editor(es) de código utilizado(s): VS Code
-Número de horas gastas para fazer o trabalho (aproximado): 11h
+Número de horas gastas para fazer o trabalho (aproximado): 14h
 
 /******************************************************************************
  *  Se você usou o arquivo key.c, descreva qualquer modificação/otimização que
