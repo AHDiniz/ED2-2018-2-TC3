@@ -1,3 +1,5 @@
+PS: lembre de anotar as informações relevantes em ED2_Trab3_info.txt
+
 Detalhes do problema:
     - Chaves compostas por C unsigned chars.
     - Cada carácter possui B bits (nesse trab B = 5 sempre).
@@ -35,4 +37,3 @@ Idéia por trás do método não força bruta: (que vc vai fazer o q der fim de 
             3. Como acessar S?
                 a) 
 
-PS: lembre de anotar as informações relevantes em ED2_Trab3_info.txt

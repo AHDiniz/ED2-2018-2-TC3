@@ -6,13 +6,15 @@ typedef struct list List;
 struct list
 {
     Key key;
+    Key value;
     List *next, *prev;
 };
 
-static List *List_Create(Key key)
+static List *List_Create(Key key, Key value)
 {
     List *list = malloc(sizeof(*list));
     list->key = key;
+    list->value = value;
     list->next = list->prev = NULL;
     return list;
 }
@@ -29,12 +31,12 @@ static void List_Destroy(List *list)
     }
 }
 
-static void List_Insert(List *list, Key key)
+static void List_Insert(List *list, Key key, Key value)
 {
     if (list == NULL) return;
     List *end;
     for (end = list; end->next != NULL; end = end->next);
-    end->next = List_Create(key);
+    end->next = List_Create(key, value);
     end->next->prev = end;
 }
 
@@ -52,6 +54,18 @@ static void List_Delete(List *list, Key key)
         }
         target = target->next;
     }
+}
+
+static Key List_GetValue(List *list, Key key)
+{
+    if (list == NULL) return;
+    List *aux;
+    for (aux = list; aux != NULL; aux = aux->next)
+    {
+        if (compare(aux->key, key) == 0)
+            return aux->value;
+    }
+    return;
 }
 
 struct sTable
@@ -98,12 +112,13 @@ static int STable_Hash(STable *table, Key key)
     return j % table->max;
 }
 
-void STable_Insert(STable *table, Key key)
+void STable_Insert(STable *table, Key key, Key value)
 {
-    if (table == NULL || table->size == table->max) return;
+    if (table == NULL) return;
     int pos = STable_Hash(table, key);
-    if (table->lists[pos] == NULL) table->lists[pos] = List_Create(key);
-    else List_Insert(table->lists[pos], key);
+    if (table->lists[pos] == NULL) table->lists[pos] = List_Create(key, value);
+    else List_Insert(table->lists[pos], key, value);
+    table->size += 1;
 }
 
 int STable_Contains(STable *table, Key key)
@@ -135,12 +150,24 @@ void STable_Print(STable *table)
     {
         if (table->lists[i] != NULL)
         {
+            int s=0;
             for (List *current = table->lists[i]; current != NULL; current = current->next)
             {
                 print_key_char(current->key);
                 printf(" ");
+                s++;
             }
-        }
+            printf("(%d)", s);
+        }else 
+            printf("(0)");
     }
-    printf("\n");
+    printf("\nsize= %d\n", table->size);
+}
+
+Key STable_GetValue(STable *table, Key key)
+{
+    if (table == NULL) return;
+    int pos = STable_Hash(table, key);
+    if (table->lists[pos] == NULL) return;
+    return List_GetValue(table->lists[pos], key);
 }

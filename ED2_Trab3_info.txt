@@ -86,7 +86,7 @@ Tamanho     Tempo (segundos)
  uma senha de x de caracteres, sendo N(x) o número de bits de uma senha de 
  tamanho x e F(x) o tempo de execução para uma senha de tamanho x, pode ser aproximado como:
 
-           F(x-1) [ 2^N(x) / 2^N(x-1) ] = 32 F(x-1)
+           F(x-1) . [ 2^N(x) / 2^N(x-1) ] = 32 . F(x-1)
 
 Desta forma, o tempo de execução do programa para uma senha de tamanho 8 será
 aproximadamente 32 . 125.619 = 128633 segundos.
