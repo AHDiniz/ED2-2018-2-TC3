@@ -50,7 +50,13 @@ Número de horas gastas para fazer o trabalho (aproximado): 24h
  *  (decrypt.c).
  *****************************************************************************/
 
-    
+    O programa para quebrar senhas usa um algoritmo parecido ao força bruta descrito
+    anteriormente, porém, ele ele seleciona um subconjunto com todas as combinações
+    feitas com as últimas K senhas da tabela T. Os itens desse subconjunto são
+    inseridos em uma tabela de símbolos, para que não seja necessário reconstruí-las
+    todas as vezes que elas forem necessárias. Ou seja, o algoritmo age como o força
+    bruta até que ele chega no subconjunto salvo na tabela de símbolos, e depois procura
+    as combinações nessa tabela.
 
 /******************************************************************************
  *  Descreva a implementação da tabela de símbolos que você utilizou em
