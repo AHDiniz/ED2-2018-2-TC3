@@ -12,7 +12,7 @@ INC = include
 
 CC = gcc
 
-FLAGS = -Wall -g -O2 -w
+FLAGS = -Wall -g -O3 -w
 
 ifeq ($(OS), Windows_NT)
 	BNAME = brute.exe
@@ -38,9 +38,16 @@ BRUTE = $(BIN)/$(BNAME)
 
 DECRYPT = $(BIN)/$(DNAME)
 
+PWD = xwtyjjin
+
+RAND = in/rand8.txt
+
 compile: $(BRUTE) $(DECRYPT)
 
 symbolTable: $(BIN)/st_test
+
+bin/encrypt: notUsing/encrypt.c src/key.c include/key.h
+	$(CC) -o $@ $^ $(FLAGS)
 
 $(BIN)/st_test: $(SRC)/st_tree.c $(SRC)/st_tester.c $(SRC)/key.c
 	$(CC) -o $@ $^ $(FLAGS)
@@ -53,3 +60,6 @@ $(DECRYPT): $(SOURCES) $(INCLUDES) $(DSRC)
 
 clean:
 	rm $(BIN)/*.o
+
+runDec:
+	time ./$(DECRYPT) $(PWD) < $(RAND)

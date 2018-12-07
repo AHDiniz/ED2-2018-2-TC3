@@ -77,9 +77,16 @@ Número de horas gastas para fazer o trabalho (aproximado): 29h
  *  as senhas usando o SEU código.
  *****************************************************************************/
 
-8 caracteres         10 caracteres          12 caracteres
-------------         -------------          -------------
-
+8 caracteres          10 caracteres          12 caracteres
+------------          -------------          -------------
+xwtyjjin -> congrats
+1.03 segundo
+rpb4dnye -> youfound
+1.14 segundo
+kdidqv4i -> theright
+1.06 segundo
+m5wrkdge -> solution
+1.2  segundo
 
 /******************************************************************************
  *  Quanto tempo a versão força bruta leva para quebrar as senhas de um dado
