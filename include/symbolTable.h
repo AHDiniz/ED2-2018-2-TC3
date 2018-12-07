@@ -18,8 +18,6 @@ void STable_Insert(STable *table, int key, Key value);
 
 int STable_Contains(STable *table, int key);
 
-void STable_Delete(STable *table, int key);
-
 void STable_Print(STable *table);
 
 Key STable_GetValue(STable *table, int key);

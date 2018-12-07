@@ -139,11 +139,6 @@ int STable_Contains(STable *table, int key)
     return result;
 }
 
-void STable_Delete(STable *table, int key)
-{
-
-}
-
 void STable_Print(STable *table)
 {
     for (int i = 0; i < table->max; i++)

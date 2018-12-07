@@ -8,7 +8,7 @@ Nome 2: Rafael Belmock Pedruzzi
 SO utilizado: Linux (labgrad)
 Versão do compilador utilizado: 5.4.0 20160609
 Editor(es) de código utilizado(s): VS Code
-Número de horas gastas para fazer o trabalho (aproximado): 14h
+Número de horas gastas para fazer o trabalho (aproximado): 24h
 
 /******************************************************************************
  *  Se você usou o arquivo key.c, descreva qualquer modificação/otimização que
@@ -50,12 +50,20 @@ Número de horas gastas para fazer o trabalho (aproximado): 14h
  *  (decrypt.c).
  *****************************************************************************/
 
+    
 
 /******************************************************************************
  *  Descreva a implementação da tabela de símbolos que você utilizou em
  *  decrypt.c .
  *****************************************************************************/
 
+    A tabela de símbolos possui uma implementação relativamente simples.
+    Basicamente, ela é uma tabela hash na qual o tratamento de colisões é ralizado
+    com o uso de listas duplamente encadeadas em cada posição do vetor principal.
+    A função hash simplesmente recebe um inteiro e usa o resto da divisão desse
+    inteiro pelo tamanho máximo do vetor como a chave dos itens. Isso foi feito
+    para que a estrutura se encaixasse da melhor forma no problema considerando
+    o tempo disponível.
 
 /******************************************************************************
  *  Liste abaixo as versões não criptografadas das senhas fornecidas na
