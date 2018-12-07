@@ -92,8 +92,8 @@ Tamanho     Tempo (segundos)
 ----------------------------
  4          0.145
  5          3.855
- 6          125.619
- 8          128600*
+ 6          2m5.619
+ 8          35h*
 
  *: O tempo de execução cresce exponencialmente com relação ao número de bits 
  na senha. Como cada carácter adiciona 5 bits a senha, o tempo de execução de 
