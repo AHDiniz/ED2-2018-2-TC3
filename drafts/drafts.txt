@@ -35,5 +35,14 @@ Idéia por trás do método não força bruta: (que vc vai fazer o q der fim de 
                 a) Realizar as somas com antecedência.
                 b) Realizar as somas durante a execução do brute force.
             3. Como acessar S?
-                a) 
+                a)
+
+
+Cálculo de memória:
+
+Tamanho da chave = K
+
+Tabela = 2^K elementos
+
+Tamanho do elemento = 1 + 12 = 13 ou 25 bytes (dependendo da arquitetura)
 
