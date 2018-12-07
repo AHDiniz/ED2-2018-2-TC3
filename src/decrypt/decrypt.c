@@ -35,7 +35,7 @@ unsigned char *convert(int *);
  * pre condition: none.
  * post condition: characters dynamically allocated and must be freed by the client.
  */
-unsigned char *convert_2(int *, int);
+unsigned char *convert_2(int *, Key);
 
 /**
  * Auxiliar function that sum all values in S table to find the decrypted passwords and print them:
@@ -94,7 +94,9 @@ void find(Key *encrypted, Key T[], STable *S, int binpass[], Key pSum, int k, bo
     }
     if (k == N - K) // Cutoff condition.
     {
-        find_S(encrypted, S, binpass, pSum);
+        // find_S(encrypted, S, binpass, pSum);
+        Key subt = sub(*encrypted, pSum);
+        STable_PrintKey(S, subt, binpass);
         return;
     }
     if (k >= N) // Stop condition (for safety).
@@ -116,27 +118,22 @@ void find(Key *encrypted, Key T[], STable *S, int binpass[], Key pSum, int k, bo
 
 void find_S(Key *encrypted, STable *S, int binpass[], Key pSum)
 {
-    // unsigned char tableKey[C];
-    // for (int i = 0; i < C-1; i++)
-    //     tableKey[i] = 'a';
+    Key subt = sub(*encrypted, pSum);
 
-    // tableKey[C-1] = 'b';
-    // Key key = init_key(tableKey);
-    // Key adder = init_key(tableKey);
-    Key sum;
+    STable_PrintKey(S, subt, binpass);
 
-    for (int i = 1; i < STable_Size(S); i++)
-    {
-        // sum = add(pSum, STable_GetValue(S, key));
-        sum = add(pSum, STable_GetValue(S, i));
-        if (compare(sum, *encrypted) == 0)
-        {
-            unsigned char *c = convert_2(binpass, i);
-            printf("%s\n", c);                      // Printing the sum if it matches the encrypted key.
-            free(c);
-        }
-        // key = add(key, adder);
-    }
+    // Key sum;
+
+    // for (int i = 1; i < STable_Size(S); i++)
+    // {
+    //     sum = add(pSum, STable_GetValue(S, i));
+    //     if (compare(sum, *encrypted) == 0)
+    //     {
+    //         unsigned char *c = convert_2(binpass, i);
+    //         printf("%s\n", c);                      // Printing the sum if it matches the encrypted key.
+    //         free(c);
+    //     }
+    // }
 }
 
 void build_S(Key T[], STable *S, int binpass[], Key pSum, int k, bool change)
@@ -144,15 +141,15 @@ void build_S(Key T[], STable *S, int binpass[], Key pSum, int k, bool change)
     // Adding previous sum, if it changes:
     if (change)
     {
-        int j = 0;
-        for(int i = 0; i < K; i++)
-        {
-            j += binpass[N-1-i] << i;
-        }
-        STable_Insert(S, j, pSum);
-        // unsigned char *c = convert(binpass);
-        // STable_Insert(S, init_key(c), pSum);
-        // free(c);
+        // int j = 0;
+        // for(int i = 0; i < K; i++)
+        // {
+        //     j += binpass[N-1-i] << i;
+        // }
+        // STable_Insert(S, j, pSum);
+        unsigned char *c = convert(binpass);
+        STable_Insert(S, pSum, init_key(c));
+        free(c);
     }
     if (k >= N) // Stop condition.
     {
@@ -191,13 +188,13 @@ unsigned char *convert(int *binpass)
     return key;
 }
 
-unsigned char *convert_2(int *binpass, int n)
+unsigned char *convert_2(int *binpass, Key key) // int n)
 {
-    int i, j, k, sum;                                                  // Auxiliar variables.
-    char bin[K];
-    unsigned char *key = malloc((C + 1) * sizeof(unsigned char));     // Characters.
+    int i, j, sum;                                                  // Auxiliar variables.
+    // char bin[K];
+    unsigned char *k = malloc((C + 1) * sizeof(unsigned char));     // Characters.
 
-    i = j = k = sum = 0;
+    i = j = sum = 0;
 
     for(i = 0, j = 0; i < N - K; i++)   // Converting the first N-k bits of the string from binary.
     {
@@ -213,64 +210,64 @@ unsigned char *convert_2(int *binpass, int n)
             case 3: sum += binpass[i] << 1;
                     break;
             case 4: sum += binpass[i];
-                    key[j++] = ALPHABET[sum]; // Finding the corresponding caracter in the alphabet.
+                    k[j++] = ALPHABET[sum]; // Finding the corresponding caracter in the alphabet.
         }
     }
 
-    for (k = K-1; k >= 0; k--)
-    {
-        if (n % 2 == 0)
-        {
-            bin[k] = 0;
-            n = n / 2;
-        }
-        else
-        {
-            bin[k] = 1;
-            n = n / 2;
-        }
-    }
+    // for (k = K-1; k >= 0; k--)
+    // {
+    //     if (n % 2 == 0)
+    //     {
+    //         bin[k] = 0;
+    //         n = n / 2;
+    //     }
+    //     else
+    //     {
+    //         bin[k] = 1;
+    //         n = n / 2;
+    //     }
+    // }
 
-    for (k = 0; i < N; k++)                           // Getting the last K bits from key.
-    {
-        switch (i % 5)
-        {
-            case 0: sum = 0;
-                    sum += bin[k] << 4;
-                    i++;
-                    break;
-            case 1: sum += bin[k] << 3;
-                    i++;
-                    break;
-            case 2: sum += bin[k] << 2;
-                    i++;
-                    break;
-            case 3: sum += bin[k] << 1;
-                    i++;
-                    break;
-            case 4: sum += bin[k];
-                    key[j++] = ALPHABET[sum];
-                    i++;
-        }
-    }
-    
-    // while (i < N)                           // Getting the last K bits from key.
+    // for (k = 0; i < N; k++)                           // Getting the last K bits from key.
     // {
     //     switch (i % 5)
     //     {
     //         case 0: sum = 0;
-    //                 sum += bit(key, i++) << 4;
+    //                 sum += bin[k] << 4;
+    //                 i++;
     //                 break;
-    //         case 1: sum += bit(key, i++) << 3;
+    //         case 1: sum += bin[k] << 3;
+    //                 i++;
     //                 break;
-    //         case 2: sum += bit(key, i++) << 2;
+    //         case 2: sum += bin[k] << 2;
+    //                 i++;
     //                 break;
-    //         case 3: sum += bit(key, i++) << 1;
+    //         case 3: sum += bin[k] << 1;
+    //                 i++;
     //                 break;
-    //         case 4: sum += bit(key, i++);
+    //         case 4: sum += bin[k];
     //                 key[j++] = ALPHABET[sum];
+    //                 i++;
     //     }
     // }
+    
+    while (i < N)                           // Getting the last K bits from key.
+    {
+        switch (i % 5)
+        {
+            case 0: sum = 0;
+                    sum += bit(key, i++) << 4;
+                    break;
+            case 1: sum += bit(key, i++) << 3;
+                    break;
+            case 2: sum += bit(key, i++) << 2;
+                    break;
+            case 3: sum += bit(key, i++) << 1;
+                    break;
+            case 4: sum += bit(key, i++);
+                    k[j++] = ALPHABET[sum];
+        }
+    }
 
-    return key;
+    return k;
 }

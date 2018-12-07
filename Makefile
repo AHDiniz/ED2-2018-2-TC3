@@ -12,7 +12,7 @@ INC = include
 
 CC = gcc
 
-FLAGS = -Wall -g -O2
+FLAGS = -Wall -g -O2 -w
 
 ifeq ($(OS), Windows_NT)
 	BNAME = brute.exe

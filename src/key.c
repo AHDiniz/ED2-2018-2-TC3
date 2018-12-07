@@ -52,7 +52,7 @@ void print_key_char(Key k)
     {
         printf("%c", ALPHABET[k.digit[i]]);
     }
-    // printf("\n");
+    printf("\n");
 }
 
 // Returns the i-th bit from the given key
@@ -91,4 +91,22 @@ Key subset_sum(Key k, Key T[N]) {
 int compare(Key k, Key y)
 {
     return memcmp(k.digit, y.digit, C);
+}
+
+Key sub(Key a, Key b)
+{
+    Key c = {{0}};
+    int carry = 0;
+    for (int i = C-1; i >= 0; i--) {
+        int sub = (a.digit[i] - b.digit[i]) - carry;
+        if (sub < 0)
+        {
+            carry = 1;
+            sub = R + sub;
+        }
+        else
+            carry = 0;
+        c.digit[i] = sub % R;
+    }
+    return c;
 }

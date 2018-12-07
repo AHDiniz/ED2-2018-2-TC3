@@ -8,7 +8,7 @@ Nome 2: Rafael Belmock Pedruzzi
 SO utilizado: Linux (labgrad)
 Versão do compilador utilizado: 5.4.0 20160609
 Editor(es) de código utilizado(s): VS Code
-Número de horas gastas para fazer o trabalho (aproximado): 24h
+Número de horas gastas para fazer o trabalho (aproximado): 29h
 
 /******************************************************************************
  *  Se você usou o arquivo key.c, descreva qualquer modificação/otimização que
@@ -90,9 +90,9 @@ Número de horas gastas para fazer o trabalho (aproximado): 24h
 
 Tamanho     Tempo (segundos)
 ----------------------------
- 4          0.145
- 5          3.855
- 6          2m5.619
+ 4          0,145
+ 5          3,855
+ 6          2m5,619
  8          35h*
 
  *: O tempo de execução cresce exponencialmente com relação ao número de bits 
@@ -114,9 +114,9 @@ aproximadamente 32 . 125.619 = 128633 segundos.
 
 Tamanho    Tempo (segundos)    Memória (bytes)
 ----------------------------------------------
- 6
- 8
-10
+ 6          0,075               1.672.204
+ 8          2,064               51.512.340
+10          1m24,145            1.677.721.600*
 12
 
 /******************************************************************************
@@ -125,11 +125,12 @@ Tamanho    Tempo (segundos)    Memória (bytes)
  *  Utilize a notação de big-Oh nas suas respostas.
  *****************************************************************************/
 
-    brute.c: Desconsiderando as funções que não dependem de N e operações
-    básicas, a função recursiva executa 2^N vezes gerando 2^N somas de chaves,
-    2^N acessos a T (na soma) e 2^(N-1) comparações entre chaves (devido a
-    variável change, somente metade das funções chamadas executarão comparações
-    entre chaves) gerando um crescimento O(2^N).
+    brute.c:
+        Desconsiderando as funções que não dependem de N e operações
+        básicas, a função recursiva executa 2^N vezes gerando 2^N somas de chaves,
+        2^N acessos a T (na soma) e 2^(N-1) comparações entre chaves (devido a
+        variável change, somente metade das funções chamadas executarão comparações
+        entre chaves) gerando um crescimento O(2^N).
 
     decrypt.c:
 

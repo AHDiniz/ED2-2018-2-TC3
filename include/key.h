@@ -1,7 +1,7 @@
 #ifndef KEY_H
 #define KEY_H
 
-#define C 6          // Password's character number
+#define C 10          // Password's character number
 #define B 5          // Character's bit number
 #define R (1 << B)   // Alphabet size
 #define N (B * C)    // Number of bits by password
@@ -36,5 +36,7 @@ Key add(Key a, Key b);
 Key subset_sum(Key k, Key T[N]);
 
 int compare(Key k, Key y);
+
+Key sub(Key a, Key b);
 
 #endif
