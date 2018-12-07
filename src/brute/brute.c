@@ -71,7 +71,7 @@ void force(Key *encrypted, Key T[], int binpass[], Key pSum, int k, bool change)
 
 unsigned char *convert(int *binpass)
 {
-    int sum = 0;            // Alphabet's character.
+    int sum = 0;                                                    // Auxiliar variables.
     unsigned char *k = malloc((C + 1) * sizeof(unsigned char));     // Characters.
 
     for(int i = 0, j = 0; i < C; i++)   // Converting each character from binary.

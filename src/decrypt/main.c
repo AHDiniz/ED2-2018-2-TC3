@@ -13,8 +13,6 @@
 #include "../../include/key.h"
 #include "../../include/decrypt.h"
 
-// int comparator(const void *, const void *);
-
 int main(int argc, char *argv[])
 {
     Key encrypted;      // encrypted password.
@@ -38,20 +36,7 @@ int main(int argc, char *argv[])
         T[i] = init_key(buffer);
     }
 
-    // for( int i = 0; i < N; i++)
-    // {
-    //     printf("%d - ", i);
-    //     print_key_char(T[i]);
-    // }
-
     decrypt(encrypted, T);
 
     return 0;
 }
-
-// int comparator(const void *a, const void *b)
-// {
-//     Key *k = (Key *) a;
-//     Key *y = (Key *) b;
-//     return compare(*k, *y);
-// }

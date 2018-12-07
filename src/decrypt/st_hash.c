@@ -5,12 +5,12 @@
 typedef struct list List;
 struct list
 {
-    Key key;
+    int key;
     Key value;
     List *next, *prev;
 };
 
-static List *List_Create(Key key, Key value)
+static List *List_Create(int key, Key value)
 {
     List *list = malloc(sizeof(*list));
     list->key = key;
@@ -31,7 +31,7 @@ static void List_Destroy(List *list)
     }
 }
 
-static void List_Insert(List *list, Key key, Key value)
+static void List_Insert(List *list, int key, Key value)
 {
     if (list == NULL) return;
     List *end;
@@ -40,12 +40,12 @@ static void List_Insert(List *list, Key key, Key value)
     end->next->prev = end;
 }
 
-static void List_Delete(List *list, Key key)
+static void List_Delete(List *list, int key)
 {
     List *target = list;
     while (target != NULL)
     {
-        if (compare(key, target->key) == 0)
+        if (key == target->key)
         {
             if (target->prev != NULL) target->prev->next = target->next;
             if (target->next != NULL) target->next->prev = target->prev;
@@ -56,13 +56,13 @@ static void List_Delete(List *list, Key key)
     }
 }
 
-static Key List_GetValue(List *list, Key key)
+static Key List_GetValue(List *list, int key)
 {
     if (list == NULL) return;
     List *aux;
     for (aux = list; aux != NULL; aux = aux->next)
     {
-        if (compare(aux->key, key) == 0)
+        if (aux->key == key)
             return aux->value;
     }
     return;
@@ -102,17 +102,17 @@ int STable_Size(STable *table)
     return table->size;
 }
 
-static int STable_Hash(STable *table, Key key)
+static int STable_Hash(STable *table, int j)
 {
-    int j = 0;
-    for(int i = 0; i < N; i++)
-    {
-        j += bit(key, N-1-i) << i;
-    }
+    // int j = 0;
+    // for(int i = 0; i < N; i++)
+    // {
+    //     j += bit(key, N-1-i) << i;
+    // }
     return j % table->max;
 }
 
-void STable_Insert(STable *table, Key key, Key value)
+void STable_Insert(STable *table, int key, Key value)
 {
     if (table == NULL) return;
     int pos = STable_Hash(table, key);
@@ -121,7 +121,7 @@ void STable_Insert(STable *table, Key key, Key value)
     table->size += 1;
 }
 
-int STable_Contains(STable *table, Key key)
+int STable_Contains(STable *table, int key)
 {
     int result = 0;
     for (int i = 0; i < table->max; i++)
@@ -131,7 +131,7 @@ int STable_Contains(STable *table, Key key)
         {
             List *current;
             for (current = table->lists[i]; current != NULL; current = current->next)
-                if (compare(current->key, key) != 0)
+                if (current->key != key)
                     break;
             result = current != NULL;
         }
@@ -139,7 +139,7 @@ int STable_Contains(STable *table, Key key)
     return result;
 }
 
-void STable_Delete(STable *table, Key key)
+void STable_Delete(STable *table, int key)
 {
 
 }
@@ -153,7 +153,8 @@ void STable_Print(STable *table)
             int s=0;
             for (List *current = table->lists[i]; current != NULL; current = current->next)
             {
-                print_key_char(current->key);
+                // print_key_char(current->key);
+                printf("%d", current->key);
                 printf(" ");
                 s++;
             }
@@ -164,7 +165,7 @@ void STable_Print(STable *table)
     printf("\nsize= %d\n", table->size);
 }
 
-Key STable_GetValue(STable *table, Key key)
+Key STable_GetValue(STable *table, int key)
 {
     if (table == NULL) return;
     int pos = STable_Hash(table, key);

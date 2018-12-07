@@ -14,14 +14,14 @@ int STable_Empty(STable *table);
 
 int STable_Size(STable *table);
 
-void STable_Insert(STable *table, Key key, Key value);
+void STable_Insert(STable *table, int key, Key value);
 
-int STable_Contains(STable *table, Key key);
+int STable_Contains(STable *table, int key);
 
-void STable_Delete(STable *table, Key key);
+void STable_Delete(STable *table, int key);
 
 void STable_Print(STable *table);
 
-Key STable_GetValue(STable *table, Key key);
+Key STable_GetValue(STable *table, int key);
 
 #endif // SYMBOL_TABLE_H_

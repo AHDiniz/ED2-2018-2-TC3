@@ -115,7 +115,7 @@ Tamanho    Tempo (segundos)    Memória (bytes)
     básicas, a função recursiva executa 2^N vezes gerando 2^N somas de chaves,
     2^N acessos a T (na soma) e 2^(N-1) comparações entre chaves (devido a
     variável change, somente metade das funções chamadas executarão comparações
-    entre chaves) gerando um crescimento O(e(N)).
+    entre chaves) gerando um crescimento O(2^N).
 
     decrypt.c:
 

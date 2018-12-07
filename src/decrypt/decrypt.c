@@ -15,7 +15,7 @@
 #include "../../include/decrypt.h"
 #include "../../include/symbolTable.h"
 
-#define K (N/4)
+#define K (N/2)
 
 /**
  * Auxiliar function that convert a binary password (represented in a int vector) to the corresponding key:
@@ -35,7 +35,7 @@ unsigned char *convert(int *);
  * pre condition: none.
  * post condition: characters dynamically allocated and must be freed by the client.
  */
-unsigned char *convert_2(int *, Key);
+unsigned char *convert_2(int *, int);
 
 /**
  * Auxiliar function that sum all values in S table to find the decrypted passwords and print them:
@@ -69,85 +69,90 @@ void find(Key *encrypted, Key T[], STable *S, int binpass[], Key pSum, int k, bo
 
 void decrypt(Key encrypted, Key *T)
 {
-    int binpass[N] = { 0 };                     // Binary password.
-    unsigned char *c = convert(binpass);        // Initial key. (all bits = 0)
-    STable *S = STable_Create(pow(2,K));
+    int binpass[N] = { 0 };                             // Binary password.
+    unsigned char *c = convert(binpass);              // Initial key. (all bits = 0)
 
-    build_S(T, S, binpass, init_key(c), N-K, false);
-    printf("\n");
+    STable *S = STable_Create(pow(2,K));                // Initializing S.
 
-    STable_Print(S);
+    build_S(T, S, binpass, init_key(c), N-K, false);    // Building S with the K last positions of T.
 
-    // find(&encrypted, T, S, binpass, init_key(c), 0, true);
+    find(&encrypted, T, S, binpass, init_key(c), 0, true);
 
-    free(c);
     STable_Destroy(S);
+    free(c);
 }
 
-// void find(Key *encrypted, Key T[], STable *S, int binpass[], Key pSum, int k, bool change)
-// {
-//     // Checking previous sum:
-//     if (change && compare(pSum, *encrypted) == 0)
-//     {
-//         unsigned char *c = convert(binpass);
-//         printf("%s\n", c);                      // Printing the sum if it matches the encrypted key.
-//         free(c);
-//     }
-//     if (k >= N - K) // Cutoff condition.
-//     {
-//         find_S(encrypted, S, binpass, pSum);
-//         return;
-//     }
-//     if (k >= N) // Stop condition (for safety).
-//     {
-//         return;
-//     }
 
-//     // Checking all combinations with previous sum, without the current key (change is false because pSum was checked previously).
-//     find(encrypted, T, S, binpass, pSum, k + 1, false);
+void find(Key *encrypted, Key T[], STable *S, int binpass[], Key pSum, int k, bool change)
+{
+    // Checking previous sum:
+    if (change && compare(pSum, *encrypted) == 0)
+    {
+        unsigned char *c = convert(binpass);
+        printf("%s\n", c);                      // Printing the sum if it matches the encrypted key.
+        free(c);
+    }
+    if (k == N - K) // Cutoff condition.
+    {
+        find_S(encrypted, S, binpass, pSum);
+        return;
+    }
+    if (k >= N) // Stop condition (for safety).
+    {
+        return;
+    }
 
-//     Key sum = add(pSum, T[k]);  // Adding current key to the sum.
-//     binpass[k] = 1;             // Marking key as added in the binary vector.
+    // Checking all combinations with previous sum, without the current key (change is false because pSum was checked previously).
+    find(encrypted, T, S, binpass, pSum, k + 1, false);
 
-//     // Recursively checking all combinations with the new sum:
-//     find(encrypted, T, S, binpass, sum, k + 1, true);
+    Key sum = add(pSum, T[k]);  // Adding current key to the sum.
+    binpass[k] = 1;             // Marking key as added in the binary vector.
 
-//     binpass[k] = 0; // Unchecking the current key to restart it's condition.
-// }
+    // Recursively checking all combinations with the new sum:
+    find(encrypted, T, S, binpass, sum, k + 1, true);
 
-// void find_S(Key *encrypted, STable *S, int binpass[], Key pSum)
-// {
-//     unsigned char tableKey[C];
-//     for (int i = 0; i < C-1; i++)
-//         tableKey[i] = 'a';
+    binpass[k] = 0; // Unchecking the current key to restart it's condition.
+}
 
-//     tableKey[C-1] = 'b';
-//     Key key = init_key(tableKey);
-//     Key adder = init_key(tableKey);
-//     Key sum;
+void find_S(Key *encrypted, STable *S, int binpass[], Key pSum)
+{
+    // unsigned char tableKey[C];
+    // for (int i = 0; i < C-1; i++)
+    //     tableKey[i] = 'a';
 
-//     for (int i = 0; i < STable_Size(S); i++)
-//     {
-//         sum = add(pSum, STable_GetValue(S, key));
-//         if (compare(sum, *encrypted) == 0)
-//         {
-//             unsigned char *c = convert_2(binpass, key);
-//             printf("%s\n", c);                      // Printing the sum if it matches the encrypted key.
-//             free(c);
-//         }
-//         key = add(key, adder);
-//     }
-// }
+    // tableKey[C-1] = 'b';
+    // Key key = init_key(tableKey);
+    // Key adder = init_key(tableKey);
+    Key sum;
+
+    for (int i = 1; i < STable_Size(S); i++)
+    {
+        // sum = add(pSum, STable_GetValue(S, key));
+        sum = add(pSum, STable_GetValue(S, i));
+        if (compare(sum, *encrypted) == 0)
+        {
+            unsigned char *c = convert_2(binpass, i);
+            printf("%s\n", c);                      // Printing the sum if it matches the encrypted key.
+            free(c);
+        }
+        // key = add(key, adder);
+    }
+}
 
 void build_S(Key T[], STable *S, int binpass[], Key pSum, int k, bool change)
 {
     // Adding previous sum, if it changes:
     if (change)
     {
-        unsigned char *c = convert(binpass);
-        //printf("%s ", c);
-        STable_Insert(S, init_key(c), pSum);
-        free(c);
+        int j = 0;
+        for(int i = 0; i < K; i++)
+        {
+            j += binpass[N-1-i] << i;
+        }
+        STable_Insert(S, j, pSum);
+        // unsigned char *c = convert(binpass);
+        // STable_Insert(S, init_key(c), pSum);
+        // free(c);
     }
     if (k >= N) // Stop condition.
     {
@@ -168,7 +173,7 @@ void build_S(Key T[], STable *S, int binpass[], Key pSum, int k, bool change)
 
 unsigned char *convert(int *binpass)
 {
-    int sum = 0;            // Alphabet's character.
+    int sum;                                                        // Auxiliar variables.
     unsigned char *k = malloc((C + 1) * sizeof(unsigned char));     // Characters.
 
     for(int i = 0, j = 0; i < C; i++)   // Converting each character from binary.
@@ -186,33 +191,68 @@ unsigned char *convert(int *binpass)
     return k;
 }
 
-unsigned char *convert_2(int *binpass, Key key)
+unsigned char *convert_2(int *binpass, int n)
 {
-    int i, j, sum = 0;            // Alphabet's character.
+    int i, j, sum;                                                  // Auxiliar variables.
     unsigned char *k = malloc((C + 1) * sizeof(unsigned char));     // Characters.
 
-    for(i = 0, j = 0; i < C - K/B; i++)   // Converting the first C - K/B characters from binary.
+    for(i = 0, j = 0; i < N - K; i++)   // Converting the first N-k bits of the string from binary.
     {
-        sum = 0;
-        sum += binpass[j++] << 4;
-        sum += binpass[j++] << 3;
-        sum += binpass[j++] << 2;
-        sum += binpass[j++] << 1;
-        sum += binpass[j++];
-
-        k[i] = ALPHABET[sum];       // Finding the corresponding caracter in the alphabet.
+        switch (i % 5)
+        {
+            case 0: sum = 0;
+                    sum += binpass[i] << 4;
+                    break;
+            case 1: sum += binpass[i] << 3;
+                    break;
+            case 2: sum += binpass[i] << 2;
+                    break;
+            case 3: sum += binpass[i] << 1;
+                    break;
+            case 4: sum += binpass[i];
+                    k[j++] = ALPHABET[sum]; // Finding the corresponding caracter in the alphabet.
+        }
     }
-    while (i < C)                   // Getting the last K/B characters from key.
+    while (i < N)                           // Getting the last K bits from key.
     {
-        sum = 0;
-        sum += bit(key, j++) << 4;
-        sum += bit(key, j++) << 3;
-        sum += bit(key, j++) << 2;
-        sum += bit(key, j++) << 1;
-        sum += bit(key, j++);
-
-        k[i++] = ALPHABET[sum];
+        switch (i % 5)
+        {
+            case 0: sum = 0;
+                    sum += (n & ( 1 << (N-i) )) >> (N-i-4);
+                    i++;
+                    break;
+            case 1: sum += (n & ( 1 << (N-i) )) >> (N-i-3);
+                    i++;
+                    break;
+            case 2: sum += (n & ( 1 << (N-i) )) >> (N-i-2);
+                    i++;
+                    break;
+            case 3: sum += (n & ( 1 << (N-i) )) >> (N-i-1);
+                    i++;
+                    break;
+            case 4: sum += (n & ( 1 << (N-i) )) >> (N-i);
+                    k[j++] = ALPHABET[sum];
+                    i++;
+        }
     }
+    
+    // while (i < N)                           // Getting the last K bits from key.
+    // {
+    //     switch (i % 5)
+    //     {
+    //         case 0: sum = 0;
+    //                 sum += bit(key, i++) << 4;
+    //                 break;
+    //         case 1: sum += bit(key, i++) << 3;
+    //                 break;
+    //         case 2: sum += bit(key, i++) << 2;
+    //                 break;
+    //         case 3: sum += bit(key, i++) << 1;
+    //                 break;
+    //         case 4: sum += bit(key, i++);
+    //                 k[j++] = ALPHABET[sum];
+    //     }
+    // }
 
     return k;
 }

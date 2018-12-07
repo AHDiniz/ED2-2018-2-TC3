@@ -36,12 +36,6 @@ int main(int argc, char *argv[])
         T[i] = init_key(buffer);
     }
 
-    // for( int i = 0; i < N; i++)
-    // {
-    //     printf("%d - ", i);
-    //     print_key_char(T[i]);
-    // }
-
     brute_force(encrypted, T);
 
     return 0;
