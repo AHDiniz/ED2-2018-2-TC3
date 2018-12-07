@@ -174,7 +174,7 @@ void build_S(Key T[], STable *S, int binpass[], Key pSum, int k, bool change)
 unsigned char *convert(int *binpass)
 {
     int sum;                                                        // Auxiliar variables.
-    unsigned char *k = malloc((C + 1) * sizeof(unsigned char));     // Characters.
+    unsigned char *key = malloc((C + 1) * sizeof(unsigned char));     // Characters.
 
     for(int i = 0, j = 0; i < C; i++)   // Converting each character from binary.
     {
@@ -185,16 +185,19 @@ unsigned char *convert(int *binpass)
         sum += binpass[j++] << 1;
         sum += binpass[j++];
 
-        k[i] = ALPHABET[sum];       // Finding the corresponding caracter in the alphabet.
+        key[i] = ALPHABET[sum];       // Finding the corresponding caracter in the alphabet.
     }
 
-    return k;
+    return key;
 }
 
 unsigned char *convert_2(int *binpass, int n)
 {
-    int i, j, sum;                                                  // Auxiliar variables.
-    unsigned char *k = malloc((C + 1) * sizeof(unsigned char));     // Characters.
+    int i, j, k, sum;                                                  // Auxiliar variables.
+    char bin[K];
+    unsigned char *key = malloc((C + 1) * sizeof(unsigned char));     // Characters.
+
+    i = j = k = sum = 0;
 
     for(i = 0, j = 0; i < N - K; i++)   // Converting the first N-k bits of the string from binary.
     {
@@ -210,28 +213,43 @@ unsigned char *convert_2(int *binpass, int n)
             case 3: sum += binpass[i] << 1;
                     break;
             case 4: sum += binpass[i];
-                    k[j++] = ALPHABET[sum]; // Finding the corresponding caracter in the alphabet.
+                    key[j++] = ALPHABET[sum]; // Finding the corresponding caracter in the alphabet.
         }
     }
-    while (i < N)                           // Getting the last K bits from key.
+
+    for (k = K-1; k >= 0; k--)
+    {
+        if (n % 2 == 0)
+        {
+            bin[k] = 0;
+            n = n / 2;
+        }
+        else
+        {
+            bin[k] = 1;
+            n = n / 2;
+        }
+    }
+
+    for (k = 0; i < N; k++)                           // Getting the last K bits from key.
     {
         switch (i % 5)
         {
             case 0: sum = 0;
-                    sum += (n & ( 1 << (N-i) )) >> (N-i-4);
+                    sum += bin[k] << 4;
                     i++;
                     break;
-            case 1: sum += (n & ( 1 << (N-i) )) >> (N-i-3);
+            case 1: sum += bin[k] << 3;
                     i++;
                     break;
-            case 2: sum += (n & ( 1 << (N-i) )) >> (N-i-2);
+            case 2: sum += bin[k] << 2;
                     i++;
                     break;
-            case 3: sum += (n & ( 1 << (N-i) )) >> (N-i-1);
+            case 3: sum += bin[k] << 1;
                     i++;
                     break;
-            case 4: sum += (n & ( 1 << (N-i) )) >> (N-i);
-                    k[j++] = ALPHABET[sum];
+            case 4: sum += bin[k];
+                    key[j++] = ALPHABET[sum];
                     i++;
         }
     }
@@ -250,9 +268,9 @@ unsigned char *convert_2(int *binpass, int n)
     //         case 3: sum += bit(key, i++) << 1;
     //                 break;
     //         case 4: sum += bit(key, i++);
-    //                 k[j++] = ALPHABET[sum];
+    //                 key[j++] = ALPHABET[sum];
     //     }
     // }
 
-    return k;
+    return key;
 }
