@@ -18,6 +18,7 @@ static List *List_Create(Key key, Key value)
     list->key = key;
     list->value = value;
     list->next = list->prev = NULL;
+    mem += sizeof(*list);
     return list;
 }
 
@@ -89,6 +90,7 @@ STable *STable_Create(int max)
     for (int i = 0; i < max; i++) table->lists[i] = NULL;
     table->size = 0;
     table->max = max;
+    mem += sizeof(*table) + sizeof(*(table->lists)) * max;
     return table;
 }
 
