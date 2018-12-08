@@ -11,7 +11,7 @@
 
 #define BRUTE_H_
 
-#include "../include/key.h"
+#include "key.h"
 
 /**
  * Brute force solution
