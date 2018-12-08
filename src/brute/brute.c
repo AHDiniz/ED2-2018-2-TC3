@@ -12,16 +12,7 @@
 #include <stdbool.h>
 
 #include "../../include/brute.h"
-
-/**
- * Auxiliar function that convert a binary password (represented in a int vector) to the corresponding key:
- *
- * input: int vector of the binary.
- * output: corresponding key in unsigned chars.
- * pre condition: none.
- * post condition: characters dynamically allocated and must be freed by the client.
- */
-unsigned char *convert(int *);
+#include "../../include/auxiliar.h"
 
 /**
  * Auxiliar recursive function that sum all possible combinations of T table's keys to find the decrypted passwords and print them:
@@ -67,24 +58,4 @@ void force(Key *encrypted, Key T[], int binpass[], Key pSum, int k, bool change)
     force(encrypted, T, binpass, sum, k + 1, true);
 
     binpass[k] = 0; // Unchecking the current key to restart it's condition.
-}
-
-unsigned char *convert(int *binpass)
-{
-    int sum = 0;                                                    // Auxiliar variables.
-    unsigned char *k = malloc((C + 1) * sizeof(unsigned char));     // Characters.
-
-    for(int i = 0, j = 0; i < C; i++)   // Converting each character from binary.
-    {
-        sum = 0;
-        sum += binpass[j++] << 4;
-        sum += binpass[j++] << 3;
-        sum += binpass[j++] << 2;
-        sum += binpass[j++] << 1;
-        sum += binpass[j++];
-
-        k[i] = ALPHABET[sum];       // Finding the corresponding caracter in the alphabet.
-    }
-
-    return k;
 }

@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define K (N/2)
-
-static unsigned char *convert_2(int *binpass, Key key);
+#include "../../include/auxiliar.h"
 
 typedef struct list List;
 struct list
@@ -69,9 +67,7 @@ static void List_PrintKey(List *list, Key key, int *binpass)
         if (compare(aux->key, key) == 0)
         {
             unsigned char *c = convert_2(binpass, aux->value);
-            // print_key_char(aux->value);
-            // printf("\n");
-            printf("%s\n", c);                      // Printing the sum if it matches the encrypted key.
+            printf("%s\n", c);
             free(c);
         }
             
@@ -160,15 +156,11 @@ void STable_Print(STable *table)
             for (List *current = table->lists[i]; current != NULL; current = current->next)
             {
                 print_key_char(current->key);
-                // printf("%d", current->key);
                 printf(" ");
                 s++;
             }
-            printf("(%d)", s);
-        }else 
-            printf("(0)");
+        }
     }
-    printf("\nsize= %d\n", table->size);
 }
 
 void STable_PrintKey(STable *table, Key key, int *binpass)
@@ -177,51 +169,4 @@ void STable_PrintKey(STable *table, Key key, int *binpass)
     int pos = STable_Hash(table, key);
     if (table->lists[pos] == NULL) return;
     List_PrintKey(table->lists[pos], key, binpass);
-}
-
-static unsigned char *convert_2(int *binpass, Key key)
-{
-    int i, j, sum;                                                  // Auxiliar variables.
-    // char bin[K];
-    unsigned char *k = malloc((C + 1) * sizeof(unsigned char));     // Characters.
-
-    i = j = sum = 0;
-
-    for(i = 0, j = 0; i < N - K; i++)   // Converting the first N-k bits of the string from binary.
-    {
-        switch (i % 5)
-        {
-            case 0: sum = 0;
-                    sum += binpass[i] << 4;
-                    break;
-            case 1: sum += binpass[i] << 3;
-                    break;
-            case 2: sum += binpass[i] << 2;
-                    break;
-            case 3: sum += binpass[i] << 1;
-                    break;
-            case 4: sum += binpass[i];
-                    k[j++] = ALPHABET[sum]; // Finding the corresponding caracter in the alphabet.
-        }
-    }
-    
-    while (i < N)                           // Getting the last K bits from key.
-    {
-        switch (i % 5)
-        {
-            case 0: sum = 0;
-                    sum += bit(key, i++) << 4;
-                    break;
-            case 1: sum += bit(key, i++) << 3;
-                    break;
-            case 2: sum += bit(key, i++) << 2;
-                    break;
-            case 3: sum += bit(key, i++) << 1;
-                    break;
-            case 4: sum += bit(key, i++);
-                    k[j++] = ALPHABET[sum];
-        }
-    }
-
-    return k;
 }

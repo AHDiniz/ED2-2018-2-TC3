@@ -1,7 +1,11 @@
 #ifndef KEY_H
 #define KEY_H
 
+<<<<<<< HEAD
 #define C 10         // Password's character number
+=======
+#define C 12          // Password's character number
+>>>>>>> e7a10774d6bad515fdf6d58ad3312131dbda9800
 #define B 5          // Character's bit number
 #define R (1 << B)   // Alphabet size
 #define N (B * C)    // Number of bits by password
