@@ -18,6 +18,7 @@ Número de horas gastas para fazer o trabalho (aproximado): 30h
     Foi utilizado o arquivo key.c com as seguintes modificações:
         - Foi incluida a biblioteca string.h.
         - Foi incluida a função compare para comparar duas keys.
+        - Foi incluida uma função para subtrair chaves.
 
 /******************************************************************************
  *  Descreva a sua solução força bruta (brute.c) .
@@ -54,9 +55,20 @@ Número de horas gastas para fazer o trabalho (aproximado): 30h
     anteriormente, porém, ele ele seleciona um subconjunto com todas as combinações
     feitas com as últimas K senhas da tabela T. Os itens desse subconjunto são
     inseridos em uma tabela de símbolos, para que não seja necessário reconstruí-las
-    todas as vezes que elas forem necessárias. Ou seja, o algoritmo age como o força
-    bruta até que ele chega no subconjunto salvo na tabela de símbolos, e depois procura
-    as combinações nessa tabela.
+    todas as vezes que elas forem alcançadas na recursão. Ou seja, o algoritmo age
+    como o força bruta até que ele chega no subconjunto salvo na tabela de símbolos,
+    e depois procura o valor desejado nessa tabela (como um cutoff). Por questões de
+    economia de memória o valor de K geralmente assume volor igual a N/2 mas foi
+    limitado superiormente em aproximadamente 1.8 Gb.
+
+    Para encontrar rapidamente o valor necessário foi desenvolvida uma função para
+    subtrair chaves. Tal função é utilizada quando a recursão alcança (partindo dos
+    valores mais significativos com o algorítimo brute force) as chaves que estão na
+    tabela S. Neste momento o valor ja obtido na recursão é subtraido da chave
+    encriptada, encontrando-se o valor V exato que deve ser somado para alcançar as
+    possiveis senhas. Dai procura-se na tabela de simbolos todo valor correspondente
+    a chave V (a tabela aceita repetição para permitir isso) e imprime as senhas
+    correspondentes.
 
 /******************************************************************************
  *  Descreva a implementação da tabela de símbolos que você utilizou em
@@ -66,10 +78,11 @@ Número de horas gastas para fazer o trabalho (aproximado): 30h
     A tabela de símbolos possui uma implementação relativamente simples.
     Basicamente, ela é uma tabela hash na qual o tratamento de colisões é ralizado
     com o uso de listas duplamente encadeadas em cada posição do vetor principal.
-    A função hash simplesmente recebe um inteiro e usa o resto da divisão desse
-    inteiro pelo tamanho máximo do vetor como a chave dos itens. Isso foi feito
-    para que a estrutura se encaixasse da melhor forma no problema considerando
-    o tempo disponível.
+    A função hash simplesmente recebe uma chave e a converte para inteiro por meio
+    de uma lógica similar a conversão binário-decimal. Este número é, então,
+    dividido pelo tamanho máximo do vetor como a chave dos itens e é retornado o
+    resto da divisão. Infelizmente a estrutura carece de uma implementação mais
+    eficiente devido a dificuldades na administração de tempo.
 
 /******************************************************************************
  *  Liste abaixo as versões não criptografadas das senhas fornecidas na
@@ -140,6 +153,15 @@ Tamanho    Tempo (segundos)    Memória (bytes)
         entre chaves) gerando um crescimento O(2^N).
 
     decrypt.c:
+        O comportamento de decrypt funciona de forma identica a solução força bruta
+        nos seus primeiros estágios gerando um comportamento O(2^N) nas primeiras
+        N - K posições de T avaliadas. Porêm nas últimas K posições seu comportamento
+        passa a depender apenas das funções de subtração e comparação de chaves
+        (aproximadamente O(C) operações) e do tamanho da lista acessada pela tabela
+        hash na posição escolida (demais operações são constantes). Infelizmente
+        sinto dizer que não possuo tempo e capacidade psicológica no presente momento
+        para calcular a probabilidade média do tamanho das listas geradas mas a
+        complexidade geral do programa torna-se O(2^(N-K)).
 
 
 /******************************************************************************
@@ -153,3 +175,4 @@ Tamanho    Tempo (segundos)    Memória (bytes)
  *  sobre o quanto você acha que aprendeu com esse trabalho, e se você gostou
  *  de fazê-lo.
  *****************************************************************************/
+ 
