@@ -1,12 +1,14 @@
 #ifndef KEY_H
 #define KEY_H
 
-#define C 12          // Password's character number
+#define C 8          // Password's character number
 #define B 5          // Character's bit number
 #define R (1 << B)   // Alphabet size
 #define N (B * C)    // Number of bits by password
 
 #define ALPHABET "abcdefghijklmnopqrstuvwxyz012345"
+
+long long int mem=0;
 
 // An integer module R made by C digits. The array is inside
 // a struct to ease memory manegement and
