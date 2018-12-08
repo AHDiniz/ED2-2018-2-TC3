@@ -13,7 +13,7 @@
 
 #include "key.h"
 
-#define K ( (N/2) > 25 ? 25 : (N/2))
+#define K ( (N/2) > 23 ? 23 : (N/2))
 
 /**
  * Auxiliar function that convert a binary password (represented in a int vector) to the corresponding key:
