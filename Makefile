@@ -38,9 +38,9 @@ BRUTE = $(BIN)/$(BNAME)
 
 DECRYPT = $(BIN)/$(DNAME)
 
-PWD = xwtyjjin
+PWD = h554tkdzti
 
-RAND = in/rand8.txt
+RAND = in/rand10.txt
 
 compile: $(BRUTE) $(DECRYPT)
 
