@@ -59,7 +59,7 @@ Número de horas gastas para fazer o trabalho (aproximado): 30h
     como o força bruta até que ele chega no subconjunto salvo na tabela de símbolos,
     e depois procura o valor desejado nessa tabela (como um cutoff). Por questões de
     economia de memória o valor de K geralmente assume volor igual a N/2 mas foi
-    limitado superiormente em aproximadamente 1.8 Gb.
+    limitado superiormente em aproximadamente 900 Mb.
 
     Para encontrar rapidamente o valor necessário foi desenvolvida uma função para
     subtrair chaves. Tal função é utilizada quando a recursão alcança (partindo dos
@@ -92,14 +92,16 @@ Número de horas gastas para fazer o trabalho (aproximado): 30h
 
 8 caracteres          10 caracteres             12 caracteres
 ------------          -------------             -------------
-xwtyjjin -> congrats  h554tkdzti -> completely
-            ibqfehan
-rpb4dnye -> mqubzd45  oykcetketn -> unbreakabl
-            youfound
-kdidqv4i -> theright  bkzlquxfnt -> cryptogram
-m5wrkdge -> aeiqrsd4  wixxliygk1 -> ormaybenot
+xwtyjjin -> congrats  h554tkdzti -> completely      *
+            ibqfehan                nbryjimvrd      *
+rpb4dnye -> mqubzd45  oykcetketn -> unbreakabl      *
+            youfound                                *
+kdidqv4i -> theright  bkzlquxfnt -> cryptogram      *
+m5wrkdge -> aeiqrsd4  wixxliygk1 -> ormaybenot      *
             solution
-1.2  segundo
+
+    * Infelizmente não foi possivel executar o programa para estas situações devido
+      a falta de tempo.
 
 /******************************************************************************
  *  Quanto tempo a versão força bruta leva para quebrar as senhas de um dado
@@ -136,8 +138,10 @@ Tamanho    Tempo (segundos)    Memória (bytes)
 ----------------------------------------------
  6          0,075               1.672.204
  8          1,064               51.512.340
-10          1m00,145            1.677.721.600*
-12
+10          1m00,145            896.100.000 (limite superior)
+12          30m*                896.100.000 (limite superior)
+
+    * valor groceiramente aproximado.
 
 /******************************************************************************
  *  Quantas operações brute.c faz sobre uma senha com N bits?
@@ -175,4 +179,11 @@ Tamanho    Tempo (segundos)    Memória (bytes)
  *  sobre o quanto você acha que aprendeu com esse trabalho, e se você gostou
  *  de fazê-lo.
  *****************************************************************************/
- 
+
+    Infelizmente, devido a outras atividades e a complicações pessoais a nós
+    não pudemos investir tanto tempo quanto gostariamos com a implementação e
+    testes. Ainda assim apresentamos aqui uma versão que consideramos satisfatória
+    do trabalho. Apesar de tudo foi um bom projeto e um pouco desafiador.
+
+    Feliz natal professor!
+            (e possiveis auxiliares de correção caso haja algum)
