@@ -8,8 +8,6 @@
 
 #define ALPHABET "abcdefghijklmnopqrstuvwxyz012345"
 
-long long int mem=0;
-
 // An integer module R made by C digits. The array is inside
 // a struct to ease memory manegement and
 // the attribute passing in functions

@@ -38,7 +38,5 @@ int main(int argc, char *argv[])
 
     decrypt(encrypted, T);
 
-    printf("\nmem = %lld\n", mem);
-
     return 0;
 }
